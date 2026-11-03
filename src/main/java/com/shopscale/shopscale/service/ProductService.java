@@ -1,3 +1,4 @@
+
 package com.shopscale.shopscale.service;
 
 import com.shopscale.shopscale.dto.ProductRequest;
@@ -24,6 +25,9 @@ public class ProductService {
         product.setName(request.getName());
         product.setPrice(request.getPrice());
         product.setStockQuantity(request.getStockQuantity());
+        product.setCategory(request.getCategory());
+        product.setDescription(request.getDescription());
+        product.setImageUrl(request.getImageUrl());
 
         Product savedProduct = productRepository.save(product);
         return mapToResponse(savedProduct);
@@ -31,6 +35,13 @@ public class ProductService {
 
     public List<ProductResponse> getAllProducts() {
         return productRepository.findAll()
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    public List<ProductResponse> searchProducts(String name) {
+        return productRepository.findByNameContainingIgnoreCase(name)
                 .stream()
                 .map(this::mapToResponse)
                 .toList();
@@ -44,6 +55,9 @@ public class ProductService {
         existingProduct.setName(request.getName());
         existingProduct.setPrice(request.getPrice());
         existingProduct.setStockQuantity(request.getStockQuantity());
+        existingProduct.setCategory(request.getCategory());
+        existingProduct.setDescription(request.getDescription());
+        existingProduct.setImageUrl(request.getImageUrl());
 
         Product updatedProduct = productRepository.save(existingProduct);
         return mapToResponse(updatedProduct);
@@ -62,7 +76,11 @@ public class ProductService {
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
-                product.getStockQuantity()
+                product.getStockQuantity(),
+                product.getCategory(),
+                product.getDescription(),
+                product.getImageUrl()
         );
     }
 }
+

@@ -1,3 +1,4 @@
+
 package com.shopscale.shopscale.dto;
 
 import jakarta.validation.constraints.NotBlank;
@@ -13,6 +14,12 @@ public class ProductRequest {
 
     @PositiveOrZero(message = "Stock quantity cannot be negative")
     private Integer stockQuantity;
+
+    private String category;
+
+    private String description;
+
+    private String imageUrl;
 
     public String getName() {
         return name;
@@ -36,5 +43,29 @@ public class ProductRequest {
 
     public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
